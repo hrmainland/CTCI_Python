@@ -9,7 +9,6 @@ To run the programs, just use the `python chapter_X/filename.py` command.
 To run the tests: `pip install pytest` and `pytest`
 
 ## Contributions
-
 Contributions welcome! Please submit separate pull requests for each solution you work on.
 
 In general solutions should fall into one of the following three categories:
