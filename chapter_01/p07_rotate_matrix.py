@@ -57,6 +57,32 @@ def rotate_matrix_pythonic_alternate(matrix):
     return [list(reversed(row)) for row in zip(*matrix)]
 
 
+def inner_rotate(matrix):
+    tmp = None
+    for layer in range(len(matrix) // 2):
+        final = len(matrix) - 1 - layer
+        for i in range(final - layer):
+            coords = [
+                (layer, i + layer),
+                (i + layer, final),
+                (final, final - i),
+                (final - i, layer),
+            ]
+            print(coords)
+            start = coords[0]
+            tmp = matrix[start[0]][start[1]]
+            j = -1
+            while j > -4:
+                this_coords = coords[j]
+                next_coords = coords[j + 1]
+                matrix[next_coords[0]][next_coords[1]] = matrix[this_coords[0]][
+                    this_coords[1]
+                ]
+                j -= 1
+            first = coords[1]
+            matrix[first[0]][first[1]] = tmp
+
+
 class Test(unittest.TestCase):
 
     test_cases = [
@@ -83,6 +109,7 @@ class Test(unittest.TestCase):
         rotate_matrix,
         rotate_matrix_pythonic_alternate,
         rotate_matrix_double_swap,
+        inner_rotate,
     ]
 
     def test_rotate_matrix(self):

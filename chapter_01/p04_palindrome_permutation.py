@@ -8,6 +8,18 @@ def clean_phrase(phrase):
     return [c for c in phrase.lower() if c in string.ascii_lowercase]
 
 
+def is_palindrome_mine(phrase):
+    phrase = clean_phrase(phrase)
+    count = Counter(phrase)
+    odd = False
+    for elem in count.values():
+        if elem % 2 != 0:
+            if odd:
+                return False
+            odd = True
+    return True
+
+
 def is_palindrome_permutation(phrase):
     """checks if a string is a permutation of a palindrome"""
     table = [0 for _ in range(ord("z") - ord("a") + 1)]
@@ -86,12 +98,14 @@ class Test(unittest.TestCase):
         ("Not a Palindrome", False),
         ("no x in nixon", True),
         ("azAZ", True),
+        ("azAZ", True),
     ]
     testable_functions = [
         is_palindrome_permutation,
         is_palindrome_bit_vector,
         is_palindrome_permutation_pythonic,
         is_palindrome_bit_vector2,
+        is_palindrome_mine,
     ]
 
     def test_pal_perm(self):
