@@ -68,7 +68,6 @@ def inner_rotate(matrix):
                 (final, final - i),
                 (final - i, layer),
             ]
-            print(coords)
             start = coords[0]
             tmp = matrix[start[0]][start[1]]
             j = -1
@@ -81,6 +80,7 @@ def inner_rotate(matrix):
                 j -= 1
             first = coords[1]
             matrix[first[0]][first[1]] = tmp
+    return matrix
 
 
 class Test(unittest.TestCase):

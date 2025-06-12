@@ -1,6 +1,6 @@
 import time
 
-from chapter_02.linked_list import LinkedList
+from linked_list import LinkedList
 
 
 def remove_dups(ll):
@@ -19,6 +19,21 @@ def remove_dups(ll):
     return ll
 
 
+def remove_duplicates(ll):
+    current = ll.head
+    if not current:
+        return ll
+    seen = set([current.value])
+    while current and current.next:
+        if current.next.value in seen:
+            current.next = current.next.next
+        else:
+            seen.add(current.next.value)
+
+        current = current.next
+    return ll
+
+
 def remove_dups_followup(ll):
     runner = current = ll.head
     while current:
@@ -30,6 +45,21 @@ def remove_dups_followup(ll):
                 runner = runner.next
         current = current.next
     ll.tail = runner
+    return ll
+
+
+def my_followup(ll):
+    left = right = ll.head
+    while left:
+        right = left.next
+        prev = left
+        while right:
+            if right.value == left.value:
+                prev.next = right.next
+            else:
+                prev = right
+            right = right.next
+        left = left.next
     return ll
 
 
@@ -62,14 +92,19 @@ def test_remove_dupes():
 
 
 def example():
-    ll = LinkedList.generate(100, 0, 9)
-    print(ll)
-    remove_dups(ll)
-    print(ll)
+    # ll = LinkedList.generate(100, 0, 9)
+    # print(ll)
+    # remove_dups(ll)
+    # print(ll)
 
-    ll = LinkedList.generate(100, 0, 9)
+    print()
+    ll = LinkedList.generate(10, 0, 9)
     print(ll)
-    remove_dups_followup(ll)
+    print()
+    # remove_dups_followup(ll)
+    # print()
+    my_followup(ll)
+    print()
     print(ll)
 
 
