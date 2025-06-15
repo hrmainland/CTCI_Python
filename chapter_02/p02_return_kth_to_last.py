@@ -1,4 +1,4 @@
-from chapter_02.linked_list import LinkedList
+from linked_list import LinkedList
 
 
 def kth_to_last(ll, k):
@@ -11,6 +11,18 @@ def kth_to_last(ll, k):
         count += 1
         leader = leader.next
     return follower
+
+
+def kth_to_last_mine(ll, k):
+    left = right = ll.head
+    for _ in range(k):
+        right = right.next
+        # if not right:
+        #     return None
+    while right:
+        left = left.next
+        right = right.next
+    return left
 
 
 # O(N) space
@@ -42,6 +54,7 @@ def test_kth_to_last():
     for linked_list_values, k, expected in test_cases:
         ll = LinkedList(linked_list_values)
         assert kth_to_last(ll, k).value == expected
+        assert kth_to_last_mine(ll, k).value == expected
         assert kth_last_recursive(ll, k).value == expected
 
 

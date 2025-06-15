@@ -1,7 +1,8 @@
-import itertools
+from collections import Counter
 
-string = "aaabbccdfd"
+string = "OESSEOOEREOEESO#ETTTOEERSTTRETT#T"
 
-for char, group in itertools.groupby(string):
-    print(char)
-    print(sum(1 for _ in group))
+for key, value in Counter(string).items():
+    print(key, value)
+
+print(len(string))

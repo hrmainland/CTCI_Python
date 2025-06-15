@@ -1,6 +1,29 @@
 import pytest
 
-from chapter_02.linked_list import LinkedList
+from linked_list import LinkedList
+
+
+def my_sum_lists(ll_a, ll_b):
+    count = 0
+    left = ll_a.head
+    right = ll_b.head
+    step = 0
+    while True:
+        if not left and not right:
+            return count
+        if left:
+            left_val = left.value
+            left = left.next
+        else:
+            left_val = 0
+        if right:
+            right_val = right.value
+            right = right.next
+        else:
+            right_val = 0
+        count += left_val * right_val * pow(10, step)
+        step += 1
+    
 
 
 def sum_lists(ll_a, ll_b):
@@ -73,7 +96,7 @@ def test_numeric_linked_list():
     assert ll.values() == [1, 2, 3]
 
 
-testable_functions = (sum_lists, sum_lists_recursive)
+testable_functions = (sum_lists, sum_lists_recursive, my_sum_lists)
 
 
 @pytest.fixture(params=testable_functions)
@@ -121,3 +144,4 @@ def example():
 if __name__ == "__main__":
     example()
     pytest.main(args=[__file__])
+

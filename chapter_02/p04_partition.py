@@ -1,4 +1,4 @@
-from chapter_02.linked_list import LinkedList
+from linked_list import LinkedList, LinkedListNode
 
 
 def partition(ll, x):
@@ -18,6 +18,24 @@ def partition(ll, x):
     # Error check in case all nodes are less than x
     if ll.tail.next is not None:
         ll.tail.next = None
+    return ll
+
+
+def my_partition(ll, x):
+    small_dummy, large_dummy = LinkedListNode(0, None), LinkedListNode(0, None)
+    small_tail, large_tail = small_dummy, large_dummy
+    current = ll.head
+    while current:
+        next_node = current.next
+        current.next = None
+        if current.value < x:
+            small_tail.next = current
+        else:
+            large_tail.next = current
+
+        current = next_node
+    small_tail.next = large_dummy.next
+    ll.head = small_dummy
     return ll
 
 
@@ -42,7 +60,7 @@ def lr_partition(_ll: LinkedList, p: int) -> LinkedList:
 
 
 def test_lr_partition():
-    partitioners = [partition, lr_partition]
+    partitioners = [partition, lr_partition, my_partition]
     for partition_func in partitioners:
         # book example
         ll = LinkedList([3, 5, 8, 5, 10, 2, 1])
