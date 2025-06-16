@@ -1,40 +1,31 @@
 # My solution to p05_sum_lists.py
-def sum_lists(ll_a, ll_b):
-    count = 0
+from linked_list import LinkedList, LinkedListNode
+
+def my_sum_lists(ll_a, ll_b):
+    remainder = 0
     left = ll_a.head
     right = ll_b.head
-    step = 0
-    while True:
-        if not left and not right:
-            return count
-        if left:
-            left_val = left.value
-            left = left.next
-        else:
-            left_val = 0
-        if right:
-            right_val = right.value
-            right = right.next
-        else:
-            right_val = 0
-        count += left_val * right_val * pow(10, step)
-        step += 1
+    ll = LinkedList()
+    head = LinkedListNode(None, None)
+    tail = head
+    while left or right:
+        left_val = left.value if left else 0
+        right_val = right.value if right else 0
+        this_sum = left_val + right_val + remainder
+        this_digit = this_sum % 10
+        remainder = this_sum // 10
+        tail.next = LinkedListNode(this_digit, None)
+        tail = tail.next
         
-
-# 617
-# 295
-
-# 912
-
-# 716
-# 592
-
-
-# [9,1,2]
-
-# [2, 1, 9] 
-# 12
-# 10
-# 8
-
-# 12 + 100 + 800
+        if left:
+            left = left.next
+        if right:
+            right = right.next
+    
+    if remainder:
+        tail.next = LinkedListNode(remainder, None)
+        tail = tail.next
+        
+    ll.head = head.next
+    ll.tail = tail
+    return ll
