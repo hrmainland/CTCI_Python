@@ -1,6 +1,6 @@
 import time
 
-from chapter_02.linked_list import LinkedList
+from linked_list import LinkedList
 
 
 def is_palindrome(ll):
@@ -23,6 +23,37 @@ def is_palindrome(ll):
 
         slow = slow.next
 
+    return True
+
+
+def my_is_palindrome(ll):
+    left = right = ll.head
+    left_moves = True
+    prev = None
+    while right:
+        prev = right
+        right = right.next
+        if left_moves:
+            left = left.next
+        left_moves = not left_moves
+
+    print(ll)
+    print(left.value, prev.value)
+
+    mid = prev
+    right = left
+    left = ll.head
+
+    stack = []
+    while right:
+        stack.append(right.value)
+        right = right.next
+
+    while left != mid and stack:
+        right_val = stack.pop()
+        if left.value != right_val:
+            return False
+        left = left.next
     return True
 
 
@@ -117,9 +148,10 @@ test_cases = [
 ]
 
 testable_functions = [
-    is_palindrome,
-    is_palindrome_constant_space,
-    is_palindrome_recursive,
+    # is_palindrome,
+    # is_palindrome_constant_space,
+    # is_palindrome_recursive,
+    my_is_palindrome
 ]
 
 
